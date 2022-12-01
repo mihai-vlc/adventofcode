@@ -1,30 +1,34 @@
 package main
 
 import (
-	"io/ioutil"
 	"log"
 	"os"
+	"regexp"
 	"sort"
 	"strconv"
-	"strings"
 )
 
-func part1() {
-
-	f, err := os.Open("./input.txt")
-
-	if err != nil {
-		log.Fatalln("error opening the input file", err)
-	}
-
-	data, err := ioutil.ReadAll(f)
+func readAllLines(filePath string) ([]string, error) {
+	data, err := os.ReadFile(filePath)
 
 	if err != nil {
-		log.Fatalln("error reading the data", err)
+		return nil, err
 	}
+
+	reg := regexp.MustCompile("\\r?\\n")
 
 	fileContent := string(data)
-	lines := strings.Split(fileContent, "\n")
+	lines := reg.Split(fileContent, -1)
+
+	return lines, nil
+}
+
+func part1() {
+	lines, err := readAllLines("./input.txt")
+
+	if err != nil {
+		log.Fatalln("input reading failed", err)
+	}
 
 	maxCalories := 0
 	elfIndex := 0
@@ -58,21 +62,11 @@ func part1() {
 }
 
 func part2() {
-
-	f, err := os.Open("./input.txt")
-
-	if err != nil {
-		log.Fatalln("error opening the input file", err)
-	}
-
-	data, err := ioutil.ReadAll(f)
+	lines, err := readAllLines("./input.txt")
 
 	if err != nil {
-		log.Fatalln("error reading the data", err)
+		log.Fatalln("input reading failed", err)
 	}
-
-	fileContent := string(data)
-	lines := strings.Split(fileContent, "\n")
 
 	elfsCalories := []int{}
 
@@ -101,14 +95,23 @@ func part2() {
 	size := len(elfsCalories)
 	result := 0
 
-	for i := size - 3; i < size; i++ {
+	for i := max(size-3, 0); i < size; i++ {
 		result += elfsCalories[i]
 	}
 
 	log.Println("top 3 calories =", result)
 }
 
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
 func main() {
+	log.SetFlags(0)
+
 	log.Println("== Part 1")
 	part1()
 

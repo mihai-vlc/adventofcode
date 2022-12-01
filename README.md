@@ -7,3 +7,8 @@ cd <day number>
 go run main.go
 ```
 
+
+### Debug console filter
+```
+!start,!type,!process,!detaching,!dlv,!DAP
+```
