@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aoc2022/day5/stack"
 	"log"
 	"os"
 	"regexp"
@@ -26,8 +25,6 @@ func part1() {
 	if err != nil {
 		log.Fatalln("input reading failed", err)
 	}
-
-	stack.NewStack()
 
 	var stackElement = regexp.MustCompile(`[ A-Z\[\]]{3} ?`)
 	var instruction = regexp.MustCompile(`move \d+ from \d+ to \d+`)
@@ -84,8 +81,6 @@ func part2() {
 	if err != nil {
 		log.Fatalln("input reading failed", err)
 	}
-
-	stack.NewStack()
 
 	var stackElement = regexp.MustCompile(`[ A-Z\[\]]{3} ?`)
 	var instruction = regexp.MustCompile(`move \d+ from \d+ to \d+`)
