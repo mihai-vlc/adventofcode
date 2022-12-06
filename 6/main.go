@@ -30,16 +30,15 @@ func (b *buffer) Size() int {
 	return len(b.data)
 }
 
-func (b *buffer) AreDifferent() bool {
-	for i, c := range b.data {
-		for j, d := range b.data {
-			if i == j {
-				continue
-			}
-			if c == d {
-				return false
-			}
+func (b *buffer) AreUnique() bool {
+	var m = map[rune]bool{}
+
+	for _, c := range b.data {
+		if m[c] {
+			return false
+
 		}
+		m[c] = true
 	}
 
 	return true
@@ -76,7 +75,7 @@ func part1() {
 		for i, c := range line {
 			buf.Add(c)
 
-			if buf.Size() == capacity && buf.AreDifferent() {
+			if buf.Size() == capacity && buf.AreUnique() {
 				log.Println("result =", i+1)
 				break
 			}
@@ -105,7 +104,7 @@ func part2() {
 		for i, c := range line {
 			buf.Add(c)
 
-			if buf.Size() == capacity && buf.AreDifferent() {
+			if buf.Size() == capacity && buf.AreUnique() {
 				log.Println("result =", i+1)
 				break
 			}
