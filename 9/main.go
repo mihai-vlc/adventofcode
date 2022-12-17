@@ -122,6 +122,8 @@ func part2() {
 		for i := 0; i < count; i++ {
 			history = append(history, head)
 			head.Move(dir)
+			println(strconv.Itoa(head.Y) + strconv.Itoa(head.X))
+			visited[head] = true
 
 			// if len(history) > 8 {
 			// 	var tail = prevHead
@@ -130,8 +132,26 @@ func part2() {
 		}
 	}
 
-	log.Println(history)
-	log.Println(len(visited))
+	// log.Println(history)
+	// log.Println(visited)
+
+	/*
+		for i := 16; i >= -7; i-- {
+			for j := -12; j < 18; j++ {
+				if i == 0 && j == 0 {
+					fmt.Print("0")
+					continue
+				}
+				if visited[Position{j, i}] {
+					fmt.Print("X")
+				} else {
+					fmt.Print(".")
+				}
+			}
+			fmt.Println("")
+		}
+	*/
+
 }
 
 func readAllLines(filePath string) ([]string, error) {
