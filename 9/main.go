@@ -59,8 +59,6 @@ func main() {
 	log.Println("== Part 1")
 	part1()
 
-	log.Println("== Part 2")
-	part2()
 }
 
 func part1() {
@@ -97,61 +95,6 @@ func part1() {
 	}
 
 	log.Println(len(visited))
-}
-
-func part2() {
-
-	lines, err := readAllLines("./input.test")
-
-	if err != nil {
-		log.Fatalln("input reading failed", err)
-	}
-
-	var head = Position{
-		X: 0,
-		Y: 0,
-	}
-	var visited = map[Position]bool{}
-	var history = []Position{}
-
-	for _, line := range lines {
-		var parts = strings.Split(line, " ")
-		var dir = charToDirection[parts[0]]
-		var count, _ = strconv.Atoi(parts[1])
-
-		for i := 0; i < count; i++ {
-			history = append(history, head)
-			head.Move(dir)
-			println(strconv.Itoa(head.Y) + strconv.Itoa(head.X))
-			visited[head] = true
-
-			// if len(history) > 8 {
-			// 	var tail = prevHead
-			// 	visited[tail] = true
-			// }
-		}
-	}
-
-	// log.Println(history)
-	// log.Println(visited)
-
-	/*
-		for i := 16; i >= -7; i-- {
-			for j := -12; j < 18; j++ {
-				if i == 0 && j == 0 {
-					fmt.Print("0")
-					continue
-				}
-				if visited[Position{j, i}] {
-					fmt.Print("X")
-				} else {
-					fmt.Print(".")
-				}
-			}
-			fmt.Println("")
-		}
-	*/
-
 }
 
 func readAllLines(filePath string) ([]string, error) {
