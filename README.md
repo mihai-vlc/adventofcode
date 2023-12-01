@@ -1,5 +1,4 @@
-
-# Advent of code 2022 solutions in golang
+# Advent of code 2022/2023 solutions in golang
 
 To execute the code
 
@@ -13,7 +12,6 @@ go run main.go
 ```
 !start,!type,!process,!detaching,!dlv,!DAP
 ```
-
 
 ```go
 var a = " 79 "
@@ -30,6 +28,7 @@ fmt.Println("a =", int('a'))
 fmt.Println("E =", int('E'))
 fmt.Println("96 =", string(rune(96)))
 ```
+
 ```output
 79
 11
