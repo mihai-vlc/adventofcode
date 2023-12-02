@@ -43,13 +43,23 @@ func part1() {
 }
 
 func part2() {
-	_, err := readAllLines("./input.txt")
+	lines, err := readAllLines("./input.txt")
 
 	if err != nil {
 		log.Fatalln("input reading failed", err)
 	}
 
 	var result int
+
+	for _, line := range lines {
+		game := Game{}
+		err := game.Load(line)
+		if err != nil {
+			continue
+		}
+
+		result += game.Power()
+	}
 
 	log.Println("result =", result)
 }
@@ -121,6 +131,23 @@ func (g *Game) Load(line string) error {
 	}
 
 	return nil
+}
+
+func (g *Game) Power() int {
+	var maxCountsMap = map[string]int{}
+	for _, r := range g.Rounds {
+		for _, selection := range r.Selections {
+			count := maxCountsMap[selection.ColorName]
+			maxCountsMap[selection.ColorName] = max(selection.Count, count)
+		}
+	}
+
+	power := 1
+	for key := range maxCountsMap {
+		power *= maxCountsMap[key]
+	}
+
+	return power
 }
 
 func (g *Game) IsValid() bool {
