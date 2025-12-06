@@ -64,8 +64,61 @@ func part2() {
 
 	var result int
 
-	log.Println("lines =", lines)
+	var productRanges = strings.Split(lines[0], ",")
+
+	for _, item := range productRanges {
+		var parts = strings.Split(item, "-")
+		start, _ := strconv.Atoi(parts[0])
+		end, _ := strconv.Atoi(parts[1])
+
+		for i := start; i <= end; i++ {
+			if isInvalidId2(i) {
+				result += i
+			}
+		}
+	}
+
 	log.Println("result =", result)
+}
+
+func isInvalidId2(id int) bool {
+	var value = strconv.Itoa(id)
+	var midPoint = len(value) / 2
+
+	for i := 1; i <= midPoint; i++ {
+		var candidate = value[0:i]
+
+		if !isRepeated(candidate, value) {
+			continue
+		}
+
+		return true
+	}
+
+	return false
+}
+
+func isRepeated(candidate string, value string) bool {
+	var size = len(candidate)
+	var start = size
+	var valueSize = len(value)
+	var end = min(start+size, valueSize)
+
+	for end <= valueSize {
+		if candidate != value[start:end] {
+			return false
+		}
+
+		if end == valueSize {
+			break
+		}
+
+		start = min(start+size, valueSize)
+		end = min(end+size, valueSize)
+
+	}
+
+	return true
 }
 
 func main() {
