@@ -22,13 +22,6 @@ func readAllLines(filePath string) ([]string, error) {
 	return lines, nil
 }
 
-func AbsInt(x int) int {
-	if x < 0 {
-		return -x
-	}
-	return x
-}
-
 func part1() {
 	lines, err := readAllLines("./input.txt")
 
@@ -39,9 +32,9 @@ func part1() {
 	var result int
 	var dial = 50
 
-	for _, v := range lines {
-		var direction = v[0]
-		steps, err := strconv.Atoi(v[1:])
+	for _, line := range lines {
+		var direction = line[0]
+		steps, err := strconv.Atoi(line[1:])
 		if err != nil {
 			continue
 		}
@@ -76,9 +69,35 @@ func part2() {
 	}
 
 	var result int
+	var dial = 50
 
 	for _, line := range lines {
-		result = len(line)
+		var direction = line[0]
+		steps, err := strconv.Atoi(line[1:])
+		if err != nil {
+			continue
+		}
+
+		for i := 0; i < steps; i++ {
+			if direction == 'L' {
+				dial -= 1
+			} else {
+				dial += 1
+			}
+
+			if dial < 0 {
+				dial = 100 + dial
+			}
+
+			if dial == 100 {
+				dial = 0
+			}
+
+			if dial == 0 {
+				result += 1
+			}
+		}
+
 	}
 
 	log.Println("result =", result)
